@@ -87,7 +87,7 @@ class Adm_terminal extends CI_Controller {
 			}else
 			{
 				$this->load->model('adm_terminal/adm_terminal_model');
-				if($this->adm_terminal_model->add($_POST['nombre'],$_POST['dep']))
+				if($this->adm_terminal_model->add($_POST['nombre'],$_POST['dep'],$_POST['lat_terminal'],$_POST['lon_terminal']))
 				{
 					redirect('adm_terminal');
 				}else
@@ -117,7 +117,7 @@ class Adm_terminal extends CI_Controller {
 			}else
 			{
 				$this->load->model('adm_terminal/adm_terminal_model');
-				if($this->adm_terminal_model->update($_POST['id'],$_POST['nombre'],$_POST['dep']))
+				if($this->adm_terminal_model->update($_POST['id'],$_POST['nombre'],$_POST['dep'],$_POST['lat_terminal'],$_POST['lon_terminal']))
 				{
 					redirect('adm_terminal');
 				}else

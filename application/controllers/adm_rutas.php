@@ -17,7 +17,8 @@ class Adm_rutas extends CI_Controller {
 		if($this->session->userdata('username'))
 		{
 			$query = $this->db->get("ruta"); 
-	        $data['records'] = $query->result(); 
+	        $data['records'] = $query->result();
+ 
 			$this->load->view('header');
 			$this->load->view('top-menu');
 			$this->load->view('menu-lateral');
@@ -49,6 +50,35 @@ class Adm_rutas extends CI_Controller {
 
 	}
 
+	public function ver_ruta()
+	{
+		
+		if($this->session->userdata('username'))
+		{
+			$id = $this->uri->segment('3'); 
+			$query = $this->db->get_where("ruta",array("id"=>$id));
+        	$data['records'] = $query->result();
+
+        	$query = $this->db->query("SELECT terminales.id, terminales.lat, terminales.lon, terminales.terminalnombre, ruta.origen, ruta.destino FROM `terminales` INNER JOIN ruta on ruta.origen = terminales.id WHERE ruta.id =$id"); 
+			$data['origen'] = $query->result(); 
+
+			$query = $this->db->query("SELECT terminales.id, terminales.lat, terminales.lon, terminales.terminalnombre, ruta.origen, ruta.destino FROM `terminales` INNER JOIN ruta on ruta.destino = terminales.id WHERE ruta.id =$id"); 
+			$data['destino'] = $query->result(); 
+
+        	$query = $this->db->query("SELECT * FROM terminales"); 
+			$data['terminales'] = $query->result(); 
+			$this->load->view('header');
+			$this->load->view('top-menu');
+			$this->load->view('menu-lateral');
+			$this->load->view('administracion/rutas/adm_rutas_ver',$data);
+			$this->load->view('footer');
+		}else
+		{
+			redirect('main');
+		}
+
+	}
+
 	public function update_view()
 	{
 		
@@ -57,6 +87,13 @@ class Adm_rutas extends CI_Controller {
 			$id = $this->uri->segment('3'); 
 			$query = $this->db->get_where("ruta",array("id"=>$id));
         	$data['records'] = $query->result();
+
+        	$query = $this->db->query("SELECT terminales.id, terminales.lat, terminales.lon, terminales.terminalnombre, ruta.origen, ruta.destino FROM `terminales` INNER JOIN ruta on ruta.origen = terminales.id WHERE ruta.id =$id"); 
+			$data['origen'] = $query->result(); 
+
+			$query = $this->db->query("SELECT terminales.id, terminales.lat, terminales.lon, terminales.terminalnombre, ruta.origen, ruta.destino FROM `terminales` INNER JOIN ruta on ruta.destino = terminales.id WHERE ruta.id =$id"); 
+			$data['destino'] = $query->result(); 
+
         	$query = $this->db->query("SELECT * FROM terminales"); 
 			$data['terminales'] = $query->result(); 
 			$this->load->view('header');

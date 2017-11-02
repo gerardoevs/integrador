@@ -66,7 +66,7 @@
 						<label for="lon_parada">Longitud:</label>
 						<input type="decimal" class="form-control" name="lon_parada" id="lon_parada" value="<?php echo $records[0]->longitud ?>">
 					</div>
-					<button type="submit" name="submit" class="btn btn-success">Modificar Parada</button>
+					<button type="submit" name="submit" class="btn btn-success btn-block">Modificar Parada</button>
 						</form>	
 
 				</div>

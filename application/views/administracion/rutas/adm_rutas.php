@@ -18,8 +18,7 @@
 						<?php
 						$i = 1;
 						echo "<th>Numero de ruta</th>";
-						echo "<th>Origen</th>";
-						echo "<th>Destino</th>";
+						echo "<th>Ver ruta en mapa</th>";
 						echo "<th>Editar</th>";
 						echo "<th>Eliminar</th>";
 					echo "</thead>";
@@ -28,8 +27,8 @@
 						$k++;
 					echo "<tr>";
 						echo "<td>".$r->num_ruta."</td>";
-						echo "<td>".$r->origen."</td>";
-						echo "<td>".$r->destino."</td>";
+						echo "<td><a href = '".site_url()."adm_rutas/ver_ruta/"
+							.$r->id."' class='btn btn-success btn-xs' role='button'><span class='glyphicon glyphicon-map-marker'></span></a></td>";
 						echo "<td><a href = '".site_url()."adm_rutas/update_view/"
 							.$r->id."' class='btn btn-success btn-xs' role='button'><span class='glyphicon glyphicon-edit'></span></a></td>";
 								echo "<td><button class='btn btn-danger btn-xs' role='button' data-toggle='modal' data-target='#myModal".$k."'><span class='glyphicon glyphicon-trash'></span></a></td>";

@@ -10,21 +10,25 @@ class Adm_terminal_model extends CI_Model
 	}
 
 
-	public function add($nombre, $departamento)
+	public function add($nombre, $departamento, $lat, $lon)
 	{
 		$datos = array(
 			'terminalnombre' => $nombre,
-			'idDepartamento' => $departamento
+			'idDepartamento' => $departamento,
+			'lat' => $lat,
+			'lon' => $lon
 			);
 		 $this->db->insert('terminales',$datos);
 		 return true;
 	}
         
-        public function update($id,$nombre, $departamento)
+        public function update($id,$nombre, $departamento,$lat, $lon)
         {
 	      	$datos = array(
 			'terminalnombre' => $nombre,
-			'idDepartamento' => $departamento
+			'idDepartamento' => $departamento,
+			'lat' => $lat,
+			'lon' => $lon
 			);
 			 $this->db->set($datos); 
 	         $this->db->where("id", $id); 

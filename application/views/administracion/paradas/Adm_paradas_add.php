@@ -14,7 +14,7 @@
 				<hr>
 				<?php if(validation_errors()== TRUE){echo '<div class="alert alert-danger"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>'.validation_errors().'</div>'; }?>
 		</div>
-		<div class="col-xs-12 col-sm-9" >
+		<div class="col-xs-12 col-sm-12 col-md-9" >
 				<div id="map" style="height:300px; margin-bottom:2em;"></div>
 				<script>
 					var marker;
@@ -46,7 +46,7 @@
 
 			    </script>
 			</div>
-			<div class="col-xs-12 col-sm-3 " style="background:white;">
+			<div class="col-xs-12 col-sm-12 col-md-3" style="background:white;">
 				
 						<form action="<?= site_url("adm_paradas/agregar") ?>" method="post">
 							<div class="form-group">
@@ -61,7 +61,7 @@
 								<label>Longitud:</label>
 								<input type="decimal" class="form-control" name="lon_parada" id="lon_parada">
 							</div>		
-							<button type="submit" name="submit" class="btn btn-success">Registrar Parada</button>
+							<button type="submit" name="submit" class="btn btn-success btn-block">Registrar Parada</button>
 						</form>	
 
 				</div>
