@@ -1,0 +1,9 @@
+div.validacion {
+  background:#FE8081;
+}
+div.validacion p{
+  text-align: center;
+  padding: 5px;
+  margin-bottom: 0;
+  color:white;
+}
