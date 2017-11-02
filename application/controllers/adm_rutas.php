@@ -174,7 +174,7 @@ class Adm_rutas extends CI_Controller {
 					redirect('adm_rutas');
 				}else
 				{
-					redirect('maina');
+					redirect('Error_general');
 				}
 	}
 

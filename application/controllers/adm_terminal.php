@@ -92,7 +92,7 @@ class Adm_terminal extends CI_Controller {
 					redirect('adm_terminal');
 				}else
 				{
-					redirect('maina');
+					redirect('Error_general');
 				}
 			}
 	}
@@ -122,7 +122,7 @@ class Adm_terminal extends CI_Controller {
 					redirect('adm_terminal');
 				}else
 				{
-					redirect('maina');
+					redirect('Error_general');
 				}
 			}
 	}
@@ -136,7 +136,7 @@ class Adm_terminal extends CI_Controller {
 					redirect('adm_terminal');
 				}else
 				{
-					redirect('maina');
+					redirect('Error_general');
 				}
 	}
 

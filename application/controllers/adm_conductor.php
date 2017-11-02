@@ -189,7 +189,7 @@ class Adm_conductor extends CI_Controller {
 				$this->load->view('footer');
 			}else
 			{
-				redirect('maina');
+				redirect('Error_general');
 			}
 	}
 

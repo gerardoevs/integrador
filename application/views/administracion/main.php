@@ -6,11 +6,13 @@
 			<ul class="banner-cdelmes">
 				<li><strong>Conductor del mes:</strong></li>
 				<li><?= $conductor[0]->nombre ?></li>
+				<!-- <li class="motivo" style="width:60%;"><marquee>ASDASDASDASD alskdnalsdknaklsd anlskn</marquee></li> -->
 			</ul>
+			
 		</div>
 	</div>
 	<div class="row">
-		<div class="col-sm-9">
+		<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9">
 		<script>
 function initMap() {
 	var latitud = new Array();
@@ -36,8 +38,7 @@ function initMap() {
 		var teamData = data[i].toString().split("_");
 		latitud[i] = teamData[0];
 		longitud[i] = teamData[1];
-		var uluru = {lat: parseFloat(latitud[i]), lng: parseFloat(longitud[i])};
-		punto[i] = uluru;
+		punto[i] = {lat: parseFloat(latitud[i]), lng: parseFloat(longitud[i])};
 	    
 	};	
 
@@ -99,7 +100,6 @@ setInterval(function(){
 cad=f.getHours()+":"+f.getMinutes()+":"+f.getSeconds(); 
 
 			
-
 	}, 10000);
 
 
@@ -113,7 +113,6 @@ function changeMarkerPosition() {
 			var teamData = data[i].toString().split("_");
 			latitud[i] = teamData[0];
 			longitud[i] = teamData[1];
-			var uluru = {lat: parseFloat(latitud[i]), lng: parseFloat(longitud[i])};
 			var latlng = new google.maps.LatLng(parseFloat(latitud[i]), parseFloat(longitud[i]));
     		autobuses[i].setPosition(latlng);
 
@@ -129,11 +128,11 @@ function changeMarkerPosition() {
 
 
       
-    </script>
+    	</script>
 			<div id="map"  class="cont-maps" >
 			</div>
 		</div>
-		<div class="col-sm-3 cont-aside">
+		<div class="col-xs-12 col-sm-3 col-md-3 col-lg-3 col-xl-12 cont-aside">
 			<h3>Unidades en el Mapa</h3>
 			<table class="table table-bordered " id="table-aside">
 				<thead>

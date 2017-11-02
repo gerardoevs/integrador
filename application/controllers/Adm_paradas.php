@@ -75,7 +75,8 @@ class Adm_paradas extends CI_Controller {
 			$this->form_validation->set_rules('lat_parada', 'Latitud', 'required');	
 			$this->form_validation->set_rules('lon_parada', 'Longitud', 'required');		
 	        if ($this->form_validation->run() == FALSE)
-	        {
+	        {	
+	        	
 				$this->load->view('header');
 				$this->load->view('top-menu');
 				$this->load->view('menu-lateral');
@@ -146,7 +147,7 @@ class Adm_paradas extends CI_Controller {
 				redirect('adm_paradas');
 			}else
 			{
-				redirect('maina');
+				redirect('Error_general');
 			}
 	}
 

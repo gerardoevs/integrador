@@ -23,36 +23,40 @@
 					$k=0;
 					foreach($records as $r) {
 						$k++;
-							echo "<tr>";
-								echo "<td>".$r->usr."</td>";
-								if($r->usr == "admin"){
-									echo "<td><a href = '".site_url()."adm_usuarios/update_view/"
-									.$r->userID."' class='btn btn-success btn-xs' role='button'><span class='glyphicon glyphicon-edit'></span></a></td>";
-								}else{
-									echo "<td><a href = '".site_url()."adm_usuarios/update_view/"
-									.$r->userID."' class='btn btn-success btn-xs' role='button'><span class='glyphicon glyphicon-edit'></span></a></td>";
-									echo "<td><button class='btn btn-danger btn-xs' role='button' data-toggle='modal' data-target='#myModal".$k."'><span class='glyphicon glyphicon-trash'></span></a></td>";
-									echo '<div class="modal fade" id="myModal'.$k.'" role="dialog">
-									    <div class="modal-dialog">
-									      <!-- Modal content-->
-									      <div class="modal-content">
-									        <div class="modal-header">
-									          <button type="button" class="close" data-dismiss="modal">&times;</button>
-									          <h4 class="modal-title">¿Esta seguro de eliminar?</h4>
-									        </div>
-									        <div class="modal-body">
-									        	'."<a href = '".site_url("adm_usuarios/eliminar/")
-									.$r->userID."' class='btn btn-danger'>Eliminar</a>"."   "."<a href = '".site_url("adm_usuarios")."' class='btn btn-default'>Cancelar</a>".'
-									        </div>
-									      </div>
-									    </div>';
-								}
-						
-									}
-									$k=0;
-									?>
+						echo "<tr>";
+						echo "<td>".$r->usr."</td>";
+						if($_SESSION['username'] != "admin"){
+							echo "<td><a href = '".site_url()."adm_usuarios/update_view/"
+							.$r->userID."' class='btn btn-success btn-xs' role='button'><span class='glyphicon glyphicon-edit'></span></a></td>";
+						}else{
+							if($r->usr=="admin"){
+								echo "<td><a href = '".site_url()."adm_usuarios/update_view/"
+								.$r->userID."' class='btn btn-success btn-xs' role='button'><span class='glyphicon glyphicon-edit'></span></a></td>";
+							}else{
+								echo "<td><a href = '".site_url()."adm_usuarios/update_view/"
+								.$r->userID."' class='btn btn-success btn-xs' role='button'><span class='glyphicon glyphicon-edit'></span></a></td>";
+								echo "<td><button class='btn btn-danger btn-xs' role='button' data-toggle='modal' data-target='#myModal".$k."'><span class='glyphicon glyphicon-trash'></span></td>";
+								echo '<div class="modal fade" id="myModal'.$k.'" role="dialog">
+								    <div class="modal-dialog">
+								      <!-- Modal content-->
+								      <div class="modal-content">
+								        <div class="modal-header">
+								          <button type="button" class="close" data-dismiss="modal">&times;</button>
+								          <h4 class="modal-title">¿Esta seguro de eliminar?</h4>
+								        </div>
+								        <div class="modal-body">
+								        	'."<a href = '".site_url("adm_usuarios/eliminar/")
+								.$r->userID."' class='btn btn-danger'>Eliminar</a>"."   "."<a href = '".site_url("adm_usuarios")."' class='btn btn-default'>Cancelar</a>".'
+								        </div>
+								      </div>
+								    </div>';
+							}
+							
+						}
+					}
+					$k=0;
+					?>
 								</table>
-								
 							</div>
 						</div>
 						

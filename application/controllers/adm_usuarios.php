@@ -76,7 +76,7 @@ class Adm_usuarios extends CI_Controller {
 					redirect('adm_usuarios');
 				}else
 				{
-					redirect('maina');
+					redirect('Error_general');
 				}
 			}else
 			{
@@ -88,19 +88,14 @@ class Adm_usuarios extends CI_Controller {
          {
 			if(isset($_POST['submit']))
 				{
-				if($_POST['pwd'] == $_POST['pwd2'])
-				{
-					$this->load->model('adm_usuarios/adm_usuarios_model');
+				$this->load->model('adm_usuarios/adm_usuarios_model');
 					if($this->adm_usuarios_model->update($_POST['id'],$_POST['usr'],$_POST['pwd']))
 					{
 						redirect('adm_usuarios');
 					}else
 					{
-						redirect('maina');
+						redirect('Error_general');
 					}
-				}else{
-
-				}
 			}else
 			{
 				$this->load->view('administracion/conductor/Adm_conductor_add');
@@ -116,7 +111,7 @@ class Adm_usuarios extends CI_Controller {
 					redirect('adm_usuarios');
 				}else
 				{
-					redirect('maina');
+					redirect('Error_general');
 				}
 	}
 
