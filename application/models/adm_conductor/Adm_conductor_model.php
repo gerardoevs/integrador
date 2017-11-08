@@ -9,6 +9,20 @@ class Adm_conductor_model extends CI_Model
 		parent::__construct();
 	}
 
+	public function conductoresEstado1()
+	{
+		$query = $this->db->query("SELECT * FROM conductores WHERE estado=1");
+		return $query->result();
+	}
+
+	public function conductoresDelMes()
+	{
+		$query = $this->db->query("SELECT nombre FROM conductores WHERE id=(SELECT id_conductor FROM conductor_estrella)");
+		return $query->result();
+	}
+
+
+
 
 	public function add($nombre, $apellido, $edad, $direccion, $dui, $nit, $licencia, $f_expedicion, $f_expiracion, $tipo,$asignar)
 	{
@@ -51,9 +65,8 @@ class Adm_conductor_model extends CI_Model
 
          public function del($id)
         {
-			if ($this->db->delete("conductores", "id = ".$id)) { 
-	           return true; 
-	        } 
+        	$this->db->query('UPDATE conductores SET estado=0 WHERE id ='.$id); 
+	        return true;
         }
 
     public function addConductorMes($id_conductor, $motivo)

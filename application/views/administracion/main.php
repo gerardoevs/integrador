@@ -14,15 +14,17 @@
 	<div class="row">
 		<div class="col-xs-12 col-sm-9 col-md-9 col-lg-9 col-xl-9">
 		<script>
-function initMap() {
-	var latitud = new Array();
-	var longitud = new Array();
-	var punto = new Array();
-	var autobuses = new Array();
-	var paradasBuses = new Array();
-	var circulos = new Array();
-	var inicio = new Array();
-	var map;
+		var latitud = new Array();
+		var longitud = new Array();
+		var punto = new Array();
+		var autobuses = new Array();
+		var paradasBuses = new Array();
+		var circulos = new Array();
+		var inicio = new Array();
+		var map;
+
+	function initMap() {
+	
 
 	var iconBase = '<?= base_url("/assets/img/"); ?>';
     var icons = {
@@ -61,7 +63,7 @@ function initMap() {
 	    <?php 
 	    	foreach ($paradas as $k) {
 	    		echo "for (var i = 1 ; i <= ".count($paradas)."; i++) {
-				    	paradasBuses[i] = new google.maps.Marker({
+	    				paradasBuses[i] = new google.maps.Marker({
 						position:{lat: ".$k->latitud." , lng: ".$k->longitud." },
 						map: map,
 						title: '".$k->nombre."',
@@ -69,18 +71,18 @@ function initMap() {
 					     });
 				    };";
 				 
-				echo "for (var i = 1 ; i <= ".count($paradas)."; i++) {
-				      circulos[i] = new google.maps.Circle({
-				      strokeColor: '#FFFFFF',
-				      strokeOpacity: 0.8,
-				      strokeWeight: 2,
-				      fillColor: '#FFFFFF',
-				      fillOpacity: 0.2,
-				      map: map,
-				      center: {lat: ".$k->latitud." , lng: ".$k->longitud." },
-				      radius: 75
-				    });
-				    };";
+				// echo "for (var i = 1 ; i <= ".count($paradas)."; i++) {
+				//       circulos[i] = new google.maps.Circle({
+				//       strokeColor: '#FFFFFF',
+				//       strokeOpacity: 0.2,
+				//       strokeWeight: 2,
+				//       fillColor: '#FFFFFF',
+				//       fillOpacity: 0.2,
+				//       map: map,
+				//       center: {lat: ".$k->latitud." , lng: ".$k->longitud." },
+				//       radius: 75
+				//     });
+				//     };";
 
 	    	};
 	    ?>
@@ -93,13 +95,13 @@ function initMap() {
 
 
 
+
+
+
 setInterval(function(){ 
 
 			changeMarkerPosition();
-			var f=new Date();
-cad=f.getHours()+":"+f.getMinutes()+":"+f.getSeconds(); 
 
-			
 	}, 10000);
 
 
@@ -122,13 +124,12 @@ function changeMarkerPosition() {
 	}); 
 
     
+	}
 }
-
-}
-
 
       
-    	</script>
+</script>
+    		
 			<div id="map"  class="cont-maps" >
 			</div>
 		</div>

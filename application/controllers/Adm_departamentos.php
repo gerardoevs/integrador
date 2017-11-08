@@ -17,7 +17,7 @@ class Adm_departamentos extends CI_Controller {
 		
 		if($this->session->userdata('username'))
 		{
-			$query = $this->db->get("departamentos"); 
+			$query = $this->db->get_where("departamentos",array("estado"=>0)); 
 	        $data['records'] = $query->result(); 
 			$this->load->view('header');
 			$this->load->view('top-menu');
@@ -83,7 +83,7 @@ class Adm_departamentos extends CI_Controller {
 				'nombre' => $nombre,
 				);
 		 		$query =$this->db->insert('departamentos',$datos);
-				$query = $this->db->get("departamentos"); 
+				$query = $this->db->get_where("departamentos",array("estado"=>0)); 
 	       		$data['records'] = $query->result();
 	       		$data['mensaje'] = "Departamento agregado exitosamente";
 				$this->load->view('header');
@@ -117,7 +117,7 @@ class Adm_departamentos extends CI_Controller {
 				$this->db->set($datos); 
 		        $this->db->where("idDepartamentos", $id); 
 		        $this->db->update("departamentos", $datos);
-		        $query = $this->db->get("departamentos"); 
+		        $query = $this->db->get_where("departamentos",array("estado"=>0));  
 		        $data['records'] = $query->result(); 
 				$this->load->view('header');
 				$this->load->view('top-menu');
@@ -133,8 +133,6 @@ class Adm_departamentos extends CI_Controller {
 			$id = $this->uri->segment('3'); 
 			$this->db->delete("departamentos", "idDepartamentos = ".$id);
 		}
-
-
 
 
 }

@@ -10,6 +10,7 @@ class Adm_conductor extends CI_Controller {
 		$this->load->database();
 		$this->load->helper('url');
 		$this->load->library('form_validation');
+		
 	}
 
 	public function index()
@@ -18,8 +19,9 @@ class Adm_conductor extends CI_Controller {
 		if($this->session->userdata('username'))
 		{
 
-	        $query = $this->db->get('conductores');
-			$data['records'] = $query->result();
+	        $this->load->model('adm_conductor/adm_conductor_model');
+			$data['records'] = $this->adm_conductor_model->conductoresEstado1();
+
 			$this->load->view('header');
 			$this->load->view('top-menu');
 			$this->load->view('menu-lateral');
@@ -54,8 +56,8 @@ class Adm_conductor extends CI_Controller {
 		
 		if($this->session->userdata('username'))
 		{
-			$query = $this->db->get("conductores"); 
-	        $data['records'] = $query->result(); 
+			$this->load->model('adm_conductor/adm_conductor_model');
+			$data['records'] = $this->adm_conductor_model->conductoresEstado1(); 
 			$this->load->view('header');
 			$this->load->view('top-menu');
 			$this->load->view('menu-lateral');
@@ -99,7 +101,8 @@ class Adm_conductor extends CI_Controller {
 	        $this->form_validation->set_rules('numLicencia', 'Numero de Licencia', 'required');
 	        $this->form_validation->set_rules('fechaExpe', 'Fecha de Expedicion de Licencia', 'required');
 	        $this->form_validation->set_rules('fechaExpira', 'Fecha de Expiracion de Licencia', 'required');
-	        $this->form_validation->set_rules('tipoLicencia', 'Tipo de Licencia', 'required');		
+	        $this->form_validation->set_rules('tipoLicencia', 'Tipo de Licencia', 'required');	
+	        $this->load->model('adm_conductor/adm_conductor_model');	
 	        if ($this->form_validation->run() == FALSE)
 	        {
 				$this->load->view('header');
@@ -110,12 +113,10 @@ class Adm_conductor extends CI_Controller {
 	        }
 	        else
 	        {
-				$this->load->model('adm_conductor/adm_conductor_model');
 				if($this->adm_conductor_model->add($_POST['nombre'],$_POST['apellido'],$_POST['edad'],$_POST['dir'],$_POST['dui'],$_POST['nit'],$_POST['numLicencia'],$_POST['fechaExpe'],$_POST['fechaExpira'],$_POST['tipoLicencia'],0))
 				{
 					$data["mensaje"]="Agregado Correctamente";
-					$query = $this->db->get('conductores');
-					$data['records'] = $query->result();
+					$data['records'] = $data['records'] = $this->adm_conductor_model->conductoresEstado1();
 					$this->load->view('header');
 					$this->load->view('top-menu');
 					$this->load->view('menu-lateral');
@@ -140,7 +141,8 @@ class Adm_conductor extends CI_Controller {
 	        $this->form_validation->set_rules('numLicencia', 'Numero de Licencia', 'required');
 	        $this->form_validation->set_rules('fechaExpe', 'Fecha de Expedicion de Licencia', 'required');
 	        $this->form_validation->set_rules('fechaExpira', 'Fecha de Expiracion de Licencia', 'required');
-	        $this->form_validation->set_rules('tipoLicencia', 'Tipo de Licencia', 'required');		
+	        $this->form_validation->set_rules('tipoLicencia', 'Tipo de Licencia', 'required');
+	        $this->load->model('adm_conductor/adm_conductor_model');		
 	        if ($this->form_validation->run() == FALSE)
 	        {
 				$id = $_POST['id']; 
@@ -154,12 +156,11 @@ class Adm_conductor extends CI_Controller {
 	        }
 	        else
 	        {
-				$this->load->model('adm_conductor/adm_conductor_model');
+				
 				if($this->adm_conductor_model->update($_POST['id'],$_POST['nombre'],$_POST['apellido'],$_POST['edad'],$_POST['dir'],$_POST['dui'],$_POST['nit'],$_POST['numLicencia'],$_POST['fechaExpe'],$_POST['fechaExpira'],$_POST['tipoLicencia']))
 				{
 					$data["success"]="Modificado Correctamente";
-					$query = $this->db->get('conductores');
-					$data['records'] = $query->result();
+					$data['records'] = $this->adm_conductor_model->conductoresEstado1();
 					$this->load->view('header');
 					$this->load->view('top-menu');
 					$this->load->view('menu-lateral');
@@ -180,8 +181,8 @@ class Adm_conductor extends CI_Controller {
 			if($this->adm_conductor_model->del($id))
 			{
 				$data["successdel"]="Eliminado Correctamente";
-				$query = $this->db->get('conductores');
-				$data['records'] = $query->result();
+				$this->load->model('adm_conductor/adm_conductor_model');
+				$data['records'] = $this->adm_conductor_model->conductoresEstado1();
 				$this->load->view('header');
 				$this->load->view('top-menu');
 				$this->load->view('menu-lateral');
@@ -198,11 +199,10 @@ class Adm_conductor extends CI_Controller {
 		
 		if($this->session->userdata('username'))
 		{
-			$query = $this->db->query("SELECT nombre FROM conductores WHERE id=(SELECT id_conductor FROM conductor_estrella)"); 
-		    $data['conductor'] = $query->result(); 
+			$this->load->model('adm_conductor/adm_conductor_model');
+		    $data['conductor'] = $this->adm_conductor_model->conductoresDelMes(); 
+			$data['records'] = $this->adm_conductor_model->conductoresEstado1(); 
 
-			$query = $this->db->get("conductores"); 
-	        $data['records'] = $query->result(); 
 			$this->load->view('header');
 			$this->load->view('top-menu');
 			$this->load->view('menu-lateral');
@@ -218,14 +218,13 @@ class Adm_conductor extends CI_Controller {
 	{
 		
 			$this->form_validation->set_rules('condutor', 'Conductor', 'required');
-	        $this->form_validation->set_rules('motivo', 'Motivo', 'required');	
+	        $this->form_validation->set_rules('motivo', 'Motivo', 'required');
+	        $this->load->model('adm_conductor/adm_conductor_model');	
 	        if ($this->form_validation->run() == FALSE)
 	        {
-				$query = $this->db->get("conductores"); 
-		        $data['records'] = $query->result();
-
-		        $query = $this->db->query("SELECT nombre FROM conductores WHERE id=(SELECT id_conductor FROM conductor_estrella)"); 
-		    	$data['conductor'] = $query->result(); 
+				
+				$data['records'] = $this->adm_conductor_model->conductoresEstado1();
+		    	$data['conductor'] = $data['conductor'] = $this->adm_conductor_model->conductoresDelMes(); 
 
 				$this->load->view('header');
 				$this->load->view('top-menu');
@@ -235,15 +234,12 @@ class Adm_conductor extends CI_Controller {
 	        }
 	        else
 	        {
-				$this->load->model('adm_conductor/adm_conductor_model');
 				if($this->adm_conductor_model->addConductorMes($_POST['condutor'],$_POST['motivo']))
 				{
-					$query = $this->db->query("SELECT nombre FROM conductores WHERE id=(SELECT id_conductor FROM conductor_estrella)"); 
-		    		$data['conductor'] = $query->result(); 
-
+		    		$data['conductor'] = $data['conductor'] = $this->adm_conductor_model->conductoresDelMes(); 
 					$data["success"]="Agregado Correctamente";
-					$query = $this->db->get('conductores');
-					$data['records'] = $query->result();
+					$data['records'] = $this->adm_conductor_model->conductoresEstado1();
+
 					$this->load->view('header');
 					$this->load->view('top-menu');
 					$this->load->view('menu-lateral');

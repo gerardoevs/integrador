@@ -27,15 +27,17 @@
 						echo "<th>Tipo licencia</th>";
 					echo "</thead>";
 					foreach($records as $r) {
-					echo "<tr>";
-						echo "<td>".$r->nombre."</td>";
-						echo "<td>".$r->apellido."</td>";
-						echo "<td>".$r->dui."</td>";
-						echo "<td>".$r->numLicencia."</td>";
-						echo "<td>".$r->tipoLicencia."</td>";
-						echo "<tr>";
-									}
-							?>
+						
+							echo "<tr>";
+							echo "<td>".$r->nombre."</td>";
+							echo "<td>".$r->apellido."</td>";
+							echo "<td>".$r->dui."</td>";
+							echo "<td>".$r->numLicencia."</td>";
+							echo "<td>".$r->tipoLicencia."</td>";
+							echo "<tr>";
+							}
+						
+						?>
 						</table>
 					</div>
 				</div>

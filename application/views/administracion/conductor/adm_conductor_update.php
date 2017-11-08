@@ -32,13 +32,14 @@
 						$k=0;
 					foreach($records as $r) {
 						$k++;
-					echo "<tr>";
-						echo "<td>".$r->id."</td>";
-						echo "<td>".$r->nombre."</td>";
-						echo "<td>".$r->apellido."</td>";
-						echo "<td>".$r->dui."</td>";
-						echo "<td>".$r->numLicencia."</td>";
-						echo "<td><a href = '".site_url()."adm_conductor/update_view/"
+						
+							echo "<tr>";
+							echo "<td>".$r->id."</td>";
+							echo "<td>".$r->nombre."</td>";
+							echo "<td>".$r->apellido."</td>";
+							echo "<td>".$r->dui."</td>";
+							echo "<td>".$r->numLicencia."</td>";
+							echo "<td><a href = '".site_url()."adm_conductor/update_view/"
 							.$r->id."' class='btn btn-success btn-xs' role='button'><span class='glyphicon glyphicon-edit'></span></a></td>";
 							echo "<td><button class='btn btn-danger btn-xs' role='button' data-toggle='modal' data-target='#myModal".$k."'><span class='glyphicon glyphicon-trash'></span></a></td>";
 							echo '<div class="modal fade" id="myModal'.$k.'" role="dialog">
@@ -57,6 +58,7 @@
 								    </div>';
 								echo "<tr>";
 									}
+
 									$k=0;
 									?>
 								</table>
