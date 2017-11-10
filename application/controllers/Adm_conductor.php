@@ -252,4 +252,37 @@ class Adm_conductor extends CI_Controller {
 				}
 	        }
 	}
+
+	public function add_photo(){
+
+		$nombre_img = $_FILES['file']['name'];
+		$tipo = $_FILES['file']['type'];
+		$tamano = $_FILES['file']['size'];
+		if (($nombre_img == !NULL) && ($_FILES['file']['size'] <= 2000000)) 
+			{
+			   //indicamos los formatos que permitimos subir a nuestro servidor
+			   if (($_FILES["file"]["type"] == "image/gif")
+			   || ($_FILES["file"]["type"] == "image/jpeg")
+			   || ($_FILES["file"]["type"] == "image/jpg")
+			   || ($_FILES["file"]["type"] == "image/png"))
+			   {
+			      // Ruta donde se guardarán las imágenes que subamos
+			      $directorio = 'C:/xampp/htdocs/integrador/assets/fotos/';
+			      // Muevo la imagen desde el directorio temporal a nuestra ruta indicada anteriormente
+			      move_uploaded_file($_FILES['file']['tmp_name'],$directorio.$nombre_img);
+
+			    } 
+			    else 
+			    {
+			       //si no cumple con el formato
+			       echo "No se puede subir una imagen con ese formato ";
+			    }
+			}
+			else 
+			{
+			   //si existe la variable pero se pasa del tamaño permitido
+			   if($nombre_img == !NULL) echo "La imagen es demasiado grande "; 
+			}
+
+	}
 }

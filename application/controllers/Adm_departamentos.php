@@ -17,6 +17,7 @@ class Adm_departamentos extends CI_Controller {
 		
 		if($this->session->userdata('username'))
 		{
+			
 			$query = $this->db->get_where("departamentos",array("estado"=>0)); 
 	        $data['records'] = $query->result(); 
 			$this->load->view('header');
