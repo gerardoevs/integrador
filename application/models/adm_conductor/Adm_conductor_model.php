@@ -17,14 +17,14 @@ class Adm_conductor_model extends CI_Model
 
 	public function conductoresDelMes()
 	{
-		$query = $this->db->query("SELECT nombre FROM conductores WHERE id=(SELECT id_conductor FROM conductor_estrella)");
+		$query = $this->db->query("SELECT nombre,foto FROM conductores WHERE id=(SELECT id_conductor FROM conductor_estrella)");
 		return $query->result();
 	}
 
 
 
 
-	public function add($nombre, $apellido, $edad, $direccion, $dui, $nit, $licencia, $f_expedicion, $f_expiracion, $tipo,$asignar)
+	public function add($nombre, $apellido, $edad, $direccion, $dui, $nit, $licencia, $f_expedicion, $f_expiracion, $tipo, $tel,$asignar, $foto)
 	{
 		$datos = array(
 			'nombre' => $nombre,
@@ -37,7 +37,10 @@ class Adm_conductor_model extends CI_Model
 			'fechaExpedicion' => $f_expedicion,
 			'fechaExpiracion' => $f_expiracion,
 			'tipoLicencia' => $tipo,
-			'asignado' => $asignar
+			'asignado' => $asignar,
+			'telefono' => $tel,
+			'foto' => $foto,
+			'estado' => 1
 			);
 		 $this->db->insert('conductores',$datos);
 		 return true;

@@ -46,10 +46,15 @@
 		</div>
 
 		<div id="menu-escondido" class="col-sm-2 " >
-			<nav class="menu-principal">
-				<h3>Menu<span class="glyphicon glyphicon-remove" style="font-size:19px; float:right; top:3px;" id="btn-cerrar"></span></h3>
-			</nav>
+			
 			<div class="panel-group" id="accordion">
+				<div class="panel panel-default">
+					<div class="panel-heading">
+						<nav class="menu-principal">
+				<h3>Menu<span class="glyphicon glyphicon-remove" style="font-size:19px; float:right; top:3px; cursor: pointer;" id="btn-cerrar"></span></h3>
+			</nav>
+					</div>
+				</div>
 				<div class="panel panel-default">
 					<div class="panel-heading">
 						<h4 class="panel-title">
@@ -73,6 +78,7 @@
 									<li><a href="<?= site_url('adm_usuarios')?>">Usuarios</a></li>
 									<li><a href="<?= site_url('adm_terminal')?>">Terminal</a></li>
 									<li><a href="<?= site_url('adm_departamentos')?>">Departamentos</a></li>
+									<li><a href="<?= site_url('adm_paradas')?>">Paradas</a></li>
 								</ul>
 							</nav>
 							

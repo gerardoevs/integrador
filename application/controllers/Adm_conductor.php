@@ -34,6 +34,26 @@ class Adm_conductor extends CI_Controller {
 
 	}
 
+	public function busqueda()
+	{
+		
+		if($this->session->userdata('username'))
+		{
+
+			$this->load->view('header');
+			$this->load->view('top-menu');
+			$this->load->view('menu-lateral');
+			$this->load->view('administracion/conductor/adm_conductor_bucar');
+			$this->load->view('footer');
+		}else
+		{
+			redirect('main');
+		}
+
+	}
+
+
+
 	public function add()
 	{
 		
@@ -113,19 +133,58 @@ class Adm_conductor extends CI_Controller {
 	        }
 	        else
 	        {
-				if($this->adm_conductor_model->add($_POST['nombre'],$_POST['apellido'],$_POST['edad'],$_POST['dir'],$_POST['dui'],$_POST['nit'],$_POST['numLicencia'],$_POST['fechaExpe'],$_POST['fechaExpira'],$_POST['tipoLicencia'],0))
+	        	$nombre_img = $_FILES['file']['name'];
+				$tipo = $_FILES['file']['type'];
+				$tamano = $_FILES['file']['size'];
+
+				if (($nombre_img == !NULL) && ($_FILES['file']['size'] <= 2000000)) 
 				{
-					$data["mensaje"]="Agregado Correctamente";
-					$data['records'] = $data['records'] = $this->adm_conductor_model->conductoresEstado1();
-					$this->load->view('header');
-					$this->load->view('top-menu');
-					$this->load->view('menu-lateral');
-					$this->load->view('administracion/conductor/adm_conductor', $data);
-					$this->load->view('footer');
-				}else
+				   //indicamos los formatos que permitimos subir a nuestro servidor
+				   if (($_FILES["file"]["type"] == "image/gif")
+				   || ($_FILES["file"]["type"] == "image/jpeg")
+				   || ($_FILES["file"]["type"] == "image/jpg")
+				   || ($_FILES["file"]["type"] == "image/png"))
+				   {
+				      // Ruta donde se guardarán las imágenes que subamos
+				      $directorio = 'C:/xampp/htdocs/integrador/assets/fotos/';
+				      // Muevo la imagen desde el directorio temporal a nuestra ruta indicada anteriormente
+				      move_uploaded_file($_FILES['file']['tmp_name'],$directorio.$nombre_img);
+				      if($this->adm_conductor_model->add(
+				      	$_POST['nombre'],$_POST['apellido'],
+				      	$_POST['edad'],$_POST['dir'],$_POST['dui'],
+				      	$_POST['nit'],$_POST['numLicencia'],
+				      	$_POST['fechaExpe'],$_POST['fechaExpira'],
+				      	$_POST['tipoLicencia'],$_POST['tel'],0, $nombre_img))
+						{
+							$data["mensaje"]="Agregado Correctamente";
+							$data['records'] = $data['records'] = $this->adm_conductor_model->conductoresEstado1();
+							$this->load->view('header');
+							$this->load->view('top-menu');
+							$this->load->view('menu-lateral');
+							$this->load->view('administracion/conductor/adm_conductor', $data);
+							$this->load->view('footer');
+						}else
+						{
+							$data["error"]="Error al agregar";
+							$this->load->view('administracion/conductor/adm_conductor',$data);
+						}
+
+				    } 
+				    else 
+				    {
+				       //si no cumple con el formato
+				    	$data["error"]="No se puede subir una imagen con ese formato ";
+				    	$this->load->view('header');
+						$this->load->view('top-menu');
+						$this->load->view('menu-lateral');
+						$this->load->view('administracion/conductor/Adm_conductor_add',$data);
+						$this->load->view('footer');
+				    }
+				}
+				else 
 				{
-					$data["error"]="Error al agregar";
-					$this->load->view('administracion/conductor/adm_conductor',$data);
+				   //si existe la variable pero se pasa del tamaño permitido
+				   if($nombre_img == !NULL) echo "La imagen es demasiado grande "; 
 				}
 	        }
 	}
@@ -253,36 +312,5 @@ class Adm_conductor extends CI_Controller {
 	        }
 	}
 
-	public function add_photo(){
-
-		$nombre_img = $_FILES['file']['name'];
-		$tipo = $_FILES['file']['type'];
-		$tamano = $_FILES['file']['size'];
-		if (($nombre_img == !NULL) && ($_FILES['file']['size'] <= 2000000)) 
-			{
-			   //indicamos los formatos que permitimos subir a nuestro servidor
-			   if (($_FILES["file"]["type"] == "image/gif")
-			   || ($_FILES["file"]["type"] == "image/jpeg")
-			   || ($_FILES["file"]["type"] == "image/jpg")
-			   || ($_FILES["file"]["type"] == "image/png"))
-			   {
-			      // Ruta donde se guardarán las imágenes que subamos
-			      $directorio = 'C:/xampp/htdocs/integrador/assets/fotos/';
-			      // Muevo la imagen desde el directorio temporal a nuestra ruta indicada anteriormente
-			      move_uploaded_file($_FILES['file']['tmp_name'],$directorio.$nombre_img);
-
-			    } 
-			    else 
-			    {
-			       //si no cumple con el formato
-			       echo "No se puede subir una imagen con ese formato ";
-			    }
-			}
-			else 
-			{
-			   //si existe la variable pero se pasa del tamaño permitido
-			   if($nombre_img == !NULL) echo "La imagen es demasiado grande "; 
-			}
-
-	}
+	
 }

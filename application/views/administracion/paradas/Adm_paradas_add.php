@@ -8,7 +8,7 @@
 		</div>
 	</div>
 
-	<div class="row cont" style="margin:0 0.05em;">
+	<div class="row cont">
 		<div class="col-xs-12 ">
 				<h1>Agregar Parada</h1>
 				<hr>

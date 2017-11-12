@@ -39,7 +39,21 @@
 		</div>
 		<div class="col-sm-3 cont-aside">
 			<h3 style="text-align:center;">Conductor del mes</h3>
-			<img src="<?= base_url('assets/img/avatar.jpg')?>" style="width:150px; display:block; margin:auto;" >
+			<?php 
+				$foto = $conductor[0]->foto;
+
+				if($foto != ""){
+					?>
+					<img src="<?php echo base_url('assets/fotos/').$foto?>" style="width:150px; display:block; margin:auto;" >
+					<?php
+				}else{
+					$foto
+					?>
+					<img src="<?php echo base_url('assets/img/avatar.jpg') ?>" style="width:150px; display:block; margin:auto;" >
+					<?php
+				}
+			?>
+			
 			<h5><strong>Nombre: </strong></h5>
 			<h5><?= $conductor[0]->nombre ?> </h5>
 			
