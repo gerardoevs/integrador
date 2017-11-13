@@ -17,19 +17,19 @@
 				<h2>Listado de conductores</h2>
 				<?php if(isset($mensaje)){echo '<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><p>'.$mensaje.'</p></div>';} ?>
 				<?php if(isset($error)){echo '<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><p>'.$error.'</p></div>';} ?>
+
+
 			<form accept-charset="utf-8" method="POST">
 				<strong>Buscar:</strong>  <input type="text" name="busqueda" id="busqueda" value="" placeholder="" maxlength="30" autocomplete="off" onKeyUp="buscar();" class="form-control" style="width: 25%; display: inline-block;" />
 			</form><br>
-			<div></div>
-			<script>
 
-			
+			<script>
 
 			function buscar() {
 			    var textoBusqueda = $("input#busqueda").val();
-			 
+			 	var area= "conductores";
 			     if (textoBusqueda != "") {
-			        $.post("http://localhost/integrador/assets/buscar.php", {valorBusqueda: textoBusqueda}, function(mensaje) {
+			        $.post("<?= base_url('assets/buscar.php')?>", {valorBusqueda: textoBusqueda, valorArea: area}, function(mensaje) {
 			        	var table = '<thead class="thead-inverse"><th>Nombre</th><th>Apellido</th><th>Dui</th><th>Numero de licencia</th><th>Tipo licencia</th></thead>';
 			            $("#resultadoBusqueda").html(table+mensaje);
 			         }); 

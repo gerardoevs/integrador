@@ -19,6 +19,10 @@ class Adm_unidades extends CI_Controller {
 		{
             $query = $this->db->get('unidades');
 			$data['records'] = $query->result();
+
+			 $query = $this->db->query('SELECT * FROM unidades WHERE mantenimiento=1');
+			$data['mantenimiento'] = $query->result();
+
 			$this->load->view('header');
 			$this->load->view('top-menu');
 			$this->load->view('menu-lateral');
