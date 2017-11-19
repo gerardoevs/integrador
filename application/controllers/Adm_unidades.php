@@ -152,23 +152,7 @@ class Adm_unidades extends CI_Controller {
 				{
 					$sql = "SELECT * from UNIDADES order by id DESC limit 1"; 
 					$query = $this->db->query($sql)	;
-					$fila = $query->row_array(); 
-					$datos = '
-						<?php
-						$file = "../gps_log/gps-position-bus'.$fila['id'].'.txt";
-						echo $file;
-						if ( isset($_GET["lat"]) && preg_match("/^-?\d+.\d+$/", $_GET["lat"])
-						    && isset($_GET["lon"]) && preg_match("/^-?\d+.\d+$/", $_GET["lon"]) ) {
-						$f = fopen($file,"w");
-						//fwrite($f, date("Y-m-d H:i:s")."_".$_GET["lat"]."_".$_GET["lon"]);
-						fputs($f,date("Y-m-d H:i:s")."_".$_GET["lat"]."_".$_GET["lon"]);
-						fclose($f);
-						    echo "OK";
-						} else {
-						    echo "Error en la comunicacion con el gps";
-						}
-					';
-					file_put_contents("assets/gps/gps".$fila['id'].".php", $datos);  
+					$fila = $query->row_array();   
 					$data["mensaje"]="Agregado Correctamente";
 					$query = $this->db->get('unidades');
 					$data['records'] = $query->result();

@@ -21,6 +21,13 @@
 		var paradasBuses = new Array();
 		var circulos = new Array();
 		var inicio = new Array();
+		var infoMarker = new Array();
+		var id= new Array();
+		var num_ruta= new Array();
+		var origen= new Array();
+		var destino= new Array();
+		var origenlatlon= new Array();
+		var destinolatlon= new Array();
 		var map;
 
 	function initMap() {
@@ -40,6 +47,12 @@
 		var teamData = data[i].toString().split("_");
 		latitud[i] = teamData[0];
 		longitud[i] = teamData[1];
+		id[i] = teamData[2];
+		num_ruta[i] = teamData[3];
+		origen[i] = teamData[4];
+		origenlatlon[i] = {lat:parseFloat(teamData[5]), lng:+parseFloat(teamData[6])};
+		destino[i] = teamData[7];
+		destinolatlon[i] = {lat:parseFloat(teamData[8]), lng:+parseFloat(teamData[9])};
 		punto[i] = {lat: parseFloat(latitud[i]), lng: parseFloat(longitud[i])};
 	    
 	};	
@@ -52,13 +65,24 @@
 	    });
 		//crea los marcadores de los buses en el mapa
 	    for (var i = 0 ; i <= latitud.length; i++) {
+
+	    	infoMarker[i] = new google.maps.InfoWindow({
+	          content: '<h5>Unidad '+id[i]+'</h5><hr><p><strong>Origen:</strong> '+ origen[i] +'<br><strong>Destino:</strong> '+destino[i]+'<br><strong>Ruta:</strong> '+num_ruta[i]+'</p>'
+	        });
+
 	    	autobuses[i] = new google.maps.Marker({
 			position:punto[i],
 			map: map,
 			title: "Unidad " + i,
 			icon: icons.autobus
 		     });
+
+	    	doInfo(autobuses[i], infoMarker[i],i);
+
+
 	    };
+
+
 
 	    <?php 
 	    	foreach ($paradas as $k) {
@@ -91,6 +115,31 @@
 	       
 	}
 
+	var directionsService = new google.maps.DirectionsService;
+	var directionsDisplay = new google.maps.DirectionsRenderer;
+	directionsDisplay.setMap(map);
+
+	function doInfo(marker, windowName,id) {
+        google.maps.event.addListener(marker, 'click', function() {
+            windowName.open(map, marker);
+            calculateAndDisplayRoute(directionsService, directionsDisplay,id);
+        });
+    }
+
+    function calculateAndDisplayRoute(directionsService, directionsDisplay,id) {
+        directionsService.route({
+          origin: origenlatlon[id],
+          destination: destinolatlon[id],
+          travelMode: 'DRIVING'
+        }, function(response, status) {
+          if (status === 'OK') {
+            directionsDisplay.setDirections(response);
+          } else {
+            window.alert('Directions request failed due to ' + status);
+          }
+        });
+      }
+
  }});
 
 
@@ -102,7 +151,7 @@ setInterval(function(){
 
 			changeMarkerPosition();
 
-	}, 10000);
+	}, 2000);
 
 
 function changeMarkerPosition() {

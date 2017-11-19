@@ -15,12 +15,21 @@
 		<div class="col-sm-12">
 			<div class="cont">
 				<h2>Listado de conductores</h2>
+				<hr>
 				<?php if(isset($mensaje)){echo '<div class="alert alert-success fade in"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><p>'.$mensaje.'</p></div>';} ?>
 				<?php if(isset($error)){echo '<div class="alert alert-danger fade in"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><p>'.$error.'</p></div>';} ?>
 
 
 			<form accept-charset="utf-8" method="POST">
-				<strong>Buscar:</strong>  <input type="text" name="busqueda" id="busqueda" value="" placeholder="" maxlength="30" autocomplete="off" onKeyUp="buscar();" class="form-control" style="width: 25%; display: inline-block;" />
+				<div class="row">
+					<div class="col-xs-12 col-sm-6">
+						<strong>Buscar:</strong>  <input type="text" name="busqueda" id="busqueda" value="" placeholder="" maxlength="30" autocomplete="off" onKeyUp="buscar();" class="form-control" style="display: inline-block;" />
+					</div>		
+					<div class="col-xs-12 col-sm-6">
+						
+					</div>				
+				</div>
+				
 			</form><br>
 
 			<script>

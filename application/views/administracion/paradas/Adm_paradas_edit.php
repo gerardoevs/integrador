@@ -48,7 +48,7 @@
 			</div>
 			<div class="col-xs-12 col-sm-3 " style="background:white;">
 				
-						<form action="<?= site_url("adm_paradas/agregar") ?>" method="post">
+						<form action="<?= site_url("adm_paradas/modificar") ?>" method="post">
 							<div class="form-group">
 						<label for="id">ID:</label>
 						<input type="text" class="form-control" readonly="true" value="<?php echo $records[0]->id ?>" name="id" id="id">
