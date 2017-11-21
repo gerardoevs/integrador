@@ -28,6 +28,7 @@
 		var destino= new Array();
 		var origenlatlon= new Array();
 		var destinolatlon= new Array();
+		var nombreConductor = new Array();
 		var map;
 
 	function initMap() {
@@ -53,6 +54,7 @@
 		origenlatlon[i] = {lat:parseFloat(teamData[5]), lng:+parseFloat(teamData[6])};
 		destino[i] = teamData[7];
 		destinolatlon[i] = {lat:parseFloat(teamData[8]), lng:+parseFloat(teamData[9])};
+		nombreConductor[i] = teamData[10];
 		punto[i] = {lat: parseFloat(latitud[i]), lng: parseFloat(longitud[i])};
 	    
 	};	
@@ -60,14 +62,14 @@
 	if (typeof(map) === "undefined") {
 
 		map = new google.maps.Map(document.getElementById('map'), {
-	    zoom: 12,
-	    center:punto[0]
+	    zoom: 9,
+	    center:{lat:13.7413339,lng:-88.7263767}
 	    });
 		//crea los marcadores de los buses en el mapa
 	    for (var i = 0 ; i <= latitud.length; i++) {
 
 	    	infoMarker[i] = new google.maps.InfoWindow({
-	          content: '<h5>Unidad '+id[i]+'</h5><hr><p><strong>Origen:</strong> '+ origen[i] +'<br><strong>Destino:</strong> '+destino[i]+'<br><strong>Ruta:</strong> '+num_ruta[i]+'</p>'
+	          content: '<h5>Unidad '+id[i]+'</h5><hr><p><strong>Conductor:</strong> '+ nombreConductor[i] +'<br><strong>Origen:</strong> '+ origen[i] +'<br><strong>Destino:</strong> '+destino[i]+'<br><strong>Ruta:</strong> '+num_ruta[i]+'</p>'
 	        });
 
 	    	autobuses[i] = new google.maps.Marker({
@@ -75,6 +77,7 @@
 			map: map,
 			title: "Unidad " + i,
 			icon: icons.autobus
+			
 		     });
 
 	    	doInfo(autobuses[i], infoMarker[i],i);
@@ -194,12 +197,20 @@ function changeMarkerPosition() {
 				<tbody>
 					
 					<?php
+					$this->load->database();
 					foreach ($unidades as $r) {
 						echo '<tr>';
 						echo '<td>'.$r->num_ruta.'</td>';
-						echo '<td>'.$r->destino.'</td>';
+						$query = $this->db->query("SELECT terminalnombre FROM terminales WHERE id = $r->destino");
+	        			$resultado = $query->result();
+						echo '<td>'.$resultado[0]->terminalnombre.'</td>';
 						echo '</tr>';
+						
 					}
+
+					
+
+					
 					?>
 					
 				</tbody>

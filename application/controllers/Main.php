@@ -27,7 +27,7 @@ class Main extends CI_Controller {
 			$query = $this->db->query("SELECT unidades.id, unidades.placa, unidades.tipo, unidades.idConductor, unidades.idRuta, unidades.idTerminal, conductores.nombre, ruta.num_ruta, ruta.destino, terminales.terminalnombre FROM `unidades` INNER JOIN conductores on unidades.idConductor = conductores.id INNER JOIN ruta on unidades.idRuta = ruta.id INNER JOIN terminales on unidades.idTerminal = terminales.id"); 
 	        $data['unidades'] = $query->result();
 
-			$this->load->view('header');
+	       	$this->load->view('header');
 			$this->load->view('top-menu');
 			$this->load->view('menu-lateral');
 			$this->load->view('administracion/main',$data);

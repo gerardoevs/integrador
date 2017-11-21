@@ -24,6 +24,7 @@ $conn = mysqli_connect($servidor,$user,$pass,$bd)or die("No fue posible la conex
 $ids = array();
 $origenes = array();
 $destinos = array();
+$idConductores = array();
 
 if ($consulta) {
 	$k=0;
@@ -38,11 +39,13 @@ if ($consulta) {
     	if($ids[$i]=="0"){
 
     	}else{
-    		$consultaLocal = mysqli_query($conn,"SELECT unidades.idRuta, ruta.origen, ruta.destino, ruta.num_ruta FROM `unidades` INNER JOIN ruta on unidades.idRuta=ruta.id WHERE unidades.id = $ids[$i] ");
+    		$consultaLocal = mysqli_query($conn,"SELECT unidades.idRuta, ruta.origen, ruta.destino, ruta.num_ruta, unidades.idConductor FROM `unidades` INNER JOIN ruta on unidades.idRuta=ruta.id WHERE unidades.id = $ids[$i] ");
 	    	$datoUnidad = mysqli_fetch_row($consultaLocal);
 	    	$origenes[$i] = $datoUnidad[1];
 	    	$destinos[$i] = $datoUnidad[2];
 	    	$latlon[$i] = $latlon[$i]."_".$datoUnidad[3];
+	    	$idConductores[$i] = $datoUnidad[4];
+
     	}
     	
     }
@@ -77,8 +80,21 @@ if ($consulta) {
 		    	$latlon[$i] = $latlon[$i]."_".$terminalDestino[0]."_".$terminalDestino[2]."_".$terminalDestino[1];
 	    	}
     	}
-    	
-    	
+    }
+    mysqli_close($conn);
+    for ($i=0; $i < sizeof($ids) ; $i++) {
+    	$conn = mysqli_connect($servidor,$user,$pass,$bd)or die("No fue posible la conexion");
+    	if($ids[$i]=="0"){
+    		
+    	}else{
+    		if($destinos[$i] == ""){
+
+	    	}else{
+	    		$consultaTerminal = mysqli_query($conn,"SELECT nombre,apellido FROM conductores WHERE id = $idConductores[$i]");
+		    	$conductores = mysqli_fetch_row($consultaTerminal);
+		    	$latlon[$i] = $latlon[$i]."_".$conductores[0]." ".$conductores[1];
+	    	}
+    	}
     }
     mysqli_close($conn);
 
