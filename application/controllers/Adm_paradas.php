@@ -49,6 +49,24 @@ class Adm_paradas extends CI_Controller {
 
 	}
 
+	public function fake()
+	{
+		
+		if($this->session->userdata('username'))
+		{
+
+			$this->load->view('header');
+			$this->load->view('top-menu');
+			$this->load->view('menu-lateral');
+			$this->load->view('administracion/paradas/adm_paradas_fake');
+			$this->load->view('footer');
+		}else
+		{
+			redirect('main');
+		}
+
+	}
+
 	public function update_view()
 	{
 		

@@ -21,7 +21,7 @@
 
 				<div class="tab-menu">
 					<a data-toggle="tab" href="#home" class="a-asignacion">Unidades en funcionamiento</a>
-					<a data-toggle="tab" href="#menu1" class="a-asignacion">Unidades defectuosas</a>
+					<a data-toggle="tab" href="#menu1" class="a-asignacion">Unidades en mantenimiento</a>
 				</div>
 				
 				
@@ -36,8 +36,11 @@
 								echo "<th>Año</th>";
 								echo "<th>Tipo</th>";
 								echo "<th>Numero de Tarjeta</th>";
+								echo "<th>Poner en Mantenimiento</th>";
 							echo "</thead>";
-							foreach($records as $r) {
+							$k=0;
+							foreach($funcionales as $r) {
+							$k++;
 							echo "<tr>";
 								echo "<td>".$r->marca."</td>";
 								echo "<td>".$r->placa."</td>";
@@ -45,6 +48,22 @@
 								echo "<td>".$r->year."</td>";
 								echo "<td>".$r->tipo."</td>";
 								echo "<td>".$r->num_tarjeta."</td>";
+								echo "<td><button class='btn btn-warning btn-xs' role='button' data-toggle='modal' data-target='#myModal".$k."'><span class='glyphicon glyphicon-wrench'></span></a></td>";
+								echo '<div class="modal fade" id="myModal'.$k.'" role="dialog">
+								    <div class="modal-dialog">
+								    
+								      <!-- Modal content-->
+								      <div class="modal-content">
+								        <div class="modal-header">
+								          <button type="button" class="close" data-dismiss="modal">&times;</button>
+								          <h4 class="modal-title">¿Poner en mantenimiento esta unidad?</h4>
+								        </div>
+								        <div class="modal-body">
+								        	'."<a href = '".site_url("adm_unidades/ponerMantenimiento/")
+								.$r->id."' class='btn btn-success'>Aceptar</a>"."   "."<a href = '".site_url("adm_unidades/update")."' class='btn btn-default'>Cancelar</a>".'
+								        </div>
+								      </div>
+								    </div>';
 								echo "<tr>";
 									}
 									?>
@@ -63,7 +82,9 @@
 								echo "<th>Año</th>";
 								echo "<th>Tipo</th>";
 								echo "<th>Numero de Tarjeta</th>";
+								echo "<th>Quitar de Mantenimiento</th>";
 							echo "</thead>";
+							$j=0;
 								foreach($mantenimiento as $r) {
 								echo "<tr>";
 								echo "<td>".$r->marca."</td>";
@@ -72,6 +93,22 @@
 								echo "<td>".$r->year."</td>";
 								echo "<td>".$r->tipo."</td>";
 								echo "<td>".$r->num_tarjeta."</td>";
+								echo "<td><button class='btn btn-warning btn-xs' role='button' data-toggle='modal' data-target='#myModal".$j."'><span class='glyphicon glyphicon-wrench'></span></a></td>";
+								echo '<div class="modal fade" id="myModal'.$j.'" role="dialog">
+								    <div class="modal-dialog">
+								    
+								      <!-- Modal content-->
+								      <div class="modal-content">
+								        <div class="modal-header">
+								          <button type="button" class="close" data-dismiss="modal">&times;</button>
+								          <h4 class="modal-title">¿Quitar de mantenimiento esta unidad?</h4>
+								        </div>
+								        <div class="modal-body">
+								        	'."<a href = '".site_url("adm_unidades/quitarMantenimiento/")
+								.$r->id."' class='btn btn-success'>Aceptar</a>"."   "."<a href = '".site_url("adm_unidades/update")."' class='btn btn-default'>Cancelar</a>".'
+								        </div>
+								      </div>
+								    </div>';
 								echo "<tr>";
 									}
 							}else{

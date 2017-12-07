@@ -20,8 +20,11 @@ class Adm_unidades extends CI_Controller {
             $query = $this->db->get('unidades');
 			$data['records'] = $query->result();
 
-			 $query = $this->db->query('SELECT * FROM unidades WHERE mantenimiento=1');
+			$query = $this->db->query('SELECT * FROM unidades WHERE mantenimiento=1');
 			$data['mantenimiento'] = $query->result();
+
+			$query = $this->db->query('SELECT * FROM unidades WHERE mantenimiento=0');
+			$data['funcionales'] = $query->result();
 
 			$this->load->view('header');
 			$this->load->view('top-menu');
@@ -156,6 +159,12 @@ class Adm_unidades extends CI_Controller {
 					$data["mensaje"]="Agregado Correctamente";
 					$query = $this->db->get('unidades');
 					$data['records'] = $query->result();
+
+					$query = $this->db->query('SELECT * FROM unidades WHERE mantenimiento=1');
+					$data['mantenimiento'] = $query->result();
+
+					$query = $this->db->query('SELECT * FROM unidades WHERE mantenimiento=0');
+					$data['funcionales'] = $query->result();
 					$this->load->view('header');
 					$this->load->view('top-menu');
 					$this->load->view('menu-lateral');
@@ -196,6 +205,9 @@ class Adm_unidades extends CI_Controller {
 					$data["mensaje"]="Modificado Correctamente";
 					$query = $this->db->get('unidades');
 					$data['records'] = $query->result();
+
+					
+					$data['funcionales'] = $query->result();
 					$this->load->view('header');
 					$this->load->view('top-menu');
 					$this->load->view('menu-lateral');
@@ -402,6 +414,45 @@ class Adm_unidades extends CI_Controller {
 					$this->load->view('footer');
 				}
 	}
+
+	public function ponerMantenimiento()
+	{
+		
+		if($this->session->userdata('username'))
+		{
+			$id = $this->uri->segment('3'); 
+			$query = $this->db->query("UPDATE unidades SET mantenimiento=1 WHERE id=$id"); 
+	       	if($query){
+	       		redirect("adm_unidades");
+	       	}else{
+	       		redirect('Error_general');
+	       	}
+	       	
+		}else
+		{
+			redirect('main');
+		}
+	}
+
+	public function quitarMantenimiento()
+	{
+		
+		if($this->session->userdata('username'))
+		{
+			$id = $this->uri->segment('3'); 
+			$query = $this->db->query("UPDATE unidades SET mantenimiento=0 WHERE id=$id"); 
+	       	if($query){
+	       		redirect("adm_unidades");
+	       	}else{
+	       		redirect('Error_general');
+	       	}
+	       	
+		}else
+		{
+			redirect('main');
+		}
+	}
+
 
 
 

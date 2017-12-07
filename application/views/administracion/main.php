@@ -30,6 +30,20 @@
 		var destinolatlon= new Array();
 		var nombreConductor = new Array();
 		var map;
+		var contador=1;
+		var random =random = Math.floor((Math.random() * 15000) + 8000);
+		
+
+	setInterval(function(){ 
+		random = Math.floor((Math.random() * 12000) + 8000);
+			$.post("<?= base_url('assets/cambiarposicion.php')?>", {valContador: contador}); 
+			if(contador < 888){
+				contador++;
+			}else{
+				contador=888;
+			}
+			console.log(random);
+	}, random);
 
 	function initMap() {
 	
@@ -205,12 +219,7 @@ function changeMarkerPosition() {
 	        			$resultado = $query->result();
 						echo '<td>'.$resultado[0]->terminalnombre.'</td>';
 						echo '</tr>';
-						
 					}
-
-					
-
-					
 					?>
 					
 				</tbody>
